@@ -5,10 +5,10 @@ import { addCategory, addTag, buildBackup, categoryHasRecords, clearAll, db, ens
 describe('資料庫', () => {
   it('預設 15 個分類；名稱不可重複（忽略 emoji）', async () => {
     await ensureSeed();
-    expect(await db.categories.count()).toBe(15);
+    expect(await db.categories.count()).toBe(16);
     await expect(addCategory('☕️ 餐費', '☕️')).rejects.toThrow('重複');
     const c = await addCategory('寵物', '🐶');
-    expect(c.order).toBe(16);
+    expect(c.order).toBe(17);
   });
 
   it('備份 → 清除 → 還原：筆數與金額相同；標籤 multiEntry 索引可查', async () => {

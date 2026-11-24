@@ -9,7 +9,7 @@ const D: [string, string, string][] = [
   ['c_meal', '☕️', '餐費'], ['c_drink', '🥤', '飲料'], ['c_rent', '🏠', '住房'], ['c_util', '💡', '水電瓦斯'],
   ['c_transport', '🚗', '交通'], ['c_daily', '📦', '日用雜貨'], ['c_cloth', '👔', '治裝'], ['c_fun', '🎮', '娛樂'],
   ['c_sport', '🏋️', '運動健身'], ['c_sub', '🔁', '訂閱'], ['c_med', '💊', '醫療'], ['c_telecom', '📱', '電信網路'],
-  ['c_learn', '🎒', '學習'], ['c_ins', '🔒', '保險'], ['c_tax', '💰', '稅金'],
+  ['c_learn', '🎒', '學習'], ['c_ins', '🔒', '保險'], ['c_tax', '💰', '稅金'], ['c_travel', '✈️', '旅遊'],
 ];
 
 export const DEFAULT_CATEGORIES: Category[] = D.map(([id, emoji, name], i) => ({

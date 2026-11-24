@@ -74,16 +74,15 @@ export function parseFiles(files: InputFile[]): ParseResult {
 
 /* ---------- 類別對應 ---------- */
 
-export type Target = { kind: 'category'; name: string } | { kind: 'travel' };
+export type Target = { kind: 'category'; name: string };
 
-const SAME = ['餐費', '飲料', '住房', '交通', '治裝', '娛樂', '醫療', '電信網路', '保險', '稅金'];
+const SAME = ['餐費', '飲料', '住房', '交通', '治裝', '娛樂', '醫療', '電信網路', '保險', '稅金', '旅遊'];
 const ALIAS: Record<string, string> = {
   水費: '水電瓦斯', 電費: '水電瓦斯', 瓦斯: '水電瓦斯', 雜費: '日用雜貨', 學費: '學習', 刷卡: '娛樂',
 };
 
 /** 預設對應；沒對到回傳 undefined（匯入畫面要求指定） */
 export function defaultTarget(src: string, existing: string[] = []): Target | undefined {
-  if (src === '旅遊') return { kind: 'travel' };
   if (ALIAS[src]) return { kind: 'category', name: ALIAS[src] };
   if (SAME.includes(src) || existing.includes(src)) return { kind: 'category', name: src };
   return undefined;
@@ -103,7 +102,6 @@ export function resolveRow(row: RawRow, mapping: Record<string, Target | undefin
 }
 
 export const monthKey = (d: string) => d.slice(0, 7);
-export const defaultTravelTag = (ym: string) => `${ym} 旅遊`;
 
 export function sumBy<T>(xs: T[], key: (x: T) => string, val: (x: T) => number): Record<string, number> {
   const m: Record<string, number> = {};

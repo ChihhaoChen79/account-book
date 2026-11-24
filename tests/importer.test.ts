@@ -26,7 +26,7 @@ describe('類別對應', () => {
     expect(defaultTarget('雜費')).toEqual({ kind: 'category', name: '日用雜貨' });
     expect(defaultTarget('學費')).toEqual({ kind: 'category', name: '學習' });
     expect(defaultTarget('刷卡')).toEqual({ kind: 'category', name: '娛樂' });
-    expect(defaultTarget('旅遊')).toEqual({ kind: 'travel' });
+    expect(defaultTarget('旅遊')).toEqual({ kind: 'category', name: '旅遊' });
     expect(defaultTarget('神秘')).toBeUndefined();
   });
   it('住房＋備註含水電瓦斯 → 水電瓦斯', () => {
@@ -63,10 +63,11 @@ describe('zip 檔名沒有 UTF-8 旗標', () => {
 describe('轉成備份 + 統計對帳', () => {
   const rows = parseExpenseCsv('2026-01-19,45,☕️ 餐費,午餐\n2026-01-21,1200,🏠 住房,電費\n2026-07-02,80,✈️ 旅遊,a\n2026-08-02,20,✈️ 旅遊,b\n2026-08-03,5,🎮 娛樂,c', 'a').rows;
   const { backup, report } = buildImportBackup(rows);
-  it('總計不變，旅遊變待分類＋月份標籤', () => {
+  it('總計不變，旅遊歸到「✈️ 旅遊」分類、不產生標籤', () => {
     expect(report.total).toBe(1350);
-    expect(backup.tags.map((t) => t.name).sort()).toEqual(['2026-07 旅遊', '2026-08 旅遊']);
-    expect(report.categoryTotals['待分類']).toBe(100);
+    expect(backup.tags).toEqual([]);
+    expect(report.categoryTotals['旅遊']).toBe(100);
+    expect(backup.categories.find((c) => c.name === '旅遊')?.emoji).toBe('✈️');
     expect(report.categoryTotals['水電瓦斯']).toBe(1200);
   });
   it('年表每月總計 = 月表總計；分類合計之和 = 全年總計', () => {
