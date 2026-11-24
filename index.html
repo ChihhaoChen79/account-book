@@ -14,7 +14,21 @@
     <title>記帳</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><p id="boot" style="font:16px -apple-system,sans-serif;padding:24px;color:#888">載入中…</p></div>
+    <script>
+      // 啟動失敗時把錯誤直接顯示在畫面上（避免一片空白看不出原因）
+      (function () {
+        function show(m) {
+          var r = document.getElementById('root');
+          if (r && document.getElementById('boot')) {
+            r.innerHTML = '<pre style="white-space:pre-wrap;word-break:break-all;font:14px/1.5 monospace;padding:24px;color:#c00">啟動失敗：\n' + String(m).replace(/</g, '&lt;') + '</pre>';
+          }
+        }
+        window.addEventListener('error', function (e) { show(e.message + (e.filename ? '\n' + e.filename + ':' + e.lineno : '')); });
+        window.addEventListener('unhandledrejection', function (e) { show(e.reason && (e.reason.stack || e.reason.message) || e.reason); });
+        window.__bootFail = show;
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

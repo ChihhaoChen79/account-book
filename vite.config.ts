@@ -5,6 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 // base './'：GitHub Pages 專案網址是 /account-book/，用相對路徑避免寫死 repo 名稱
 export default defineConfig({
   base: './',
+  build: { target: 'safari15' },
   plugins: [
     react(),
     VitePWA({
