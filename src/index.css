@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light dark; --bg: #f2f2f7; --card: #ffffff; --line: #e5e5ea; --sub: #6b7280; --txt: #111827; --accent: #d9362b; }
+@media (prefers-color-scheme: dark) { :root { --bg: #000000; --card: #1c1c1e; --line: #38383a; --sub: #9ca3af; --txt: #f3f4f6; } }
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--txt);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none;
+}
+/* iOS 聚焦時字級小於 16px 會自動放大 */
+input, select, textarea { font-size: 16px; }
+button { touch-action: manipulation; }
+
+@layer components {
+  .card { @apply rounded-2xl p-3; background: var(--card); }
+  .input { @apply w-full rounded-xl px-3 py-2 outline-none; min-height: 44px; background: var(--bg); border: 1px solid var(--line); color: var(--txt); }
+  .btn { @apply rounded-xl px-4 font-medium active:opacity-70 disabled:opacity-40; min-height: 44px; background: var(--bg); border: 1px solid var(--line); }
+  .btn-primary { @apply rounded-xl px-4 font-semibold text-white active:opacity-70 disabled:opacity-40; min-height: 44px; background: var(--accent); }
+  .btn-danger { @apply rounded-xl px-4 font-semibold text-red-600 active:opacity-70; min-height: 44px; background: var(--bg); border: 1px solid var(--line); }
+  .chip { @apply inline-flex items-center rounded-full px-3 text-sm active:opacity-70; min-height: 36px; background: var(--bg); border: 1px solid var(--line); }
+  .chip-on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .sub { color: var(--sub); }
+  .line { border-color: var(--line); }
+}
+
+/* Numbers 風格表格 */
+.nt { border-collapse: collapse; width: 100%; background: var(--card); font-variant-numeric: tabular-nums; }
+.nt th, .nt td { border: 1px solid var(--line); padding: 8px 10px; white-space: nowrap; }
+.nt th { text-align: center; font-weight: 600; background: var(--card); }
+.nt td.num { text-align: right; }
+.nt tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--bg) 70%, var(--card)); }
+.nt tr.total td { font-weight: 700; background: var(--card) !important; }
+.nt .stick { position: sticky; left: 0; z-index: 1; background: var(--card); }
+.nt tbody tr:nth-child(even) td.stick { background: color-mix(in srgb, var(--bg) 70%, var(--card)); }
+.nt tr.total td.stick { background: var(--card); }
+.nt button { text-decoration: underline; text-decoration-color: transparent; }
+
+.pt-safe { padding-top: env(safe-area-inset-top); }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }

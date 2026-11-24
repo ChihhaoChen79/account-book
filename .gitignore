@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.DS_Store
+# 記帳資料與備份絕對不進 repo
+private/
+*.csv
+*.zip
+ledger-backup-*.json
+# 備份 JSON（設定檔例外）
+*.json
+!package.json
+!package-lock.json
+!tsconfig*.json
+!public/*.json
